@@ -3,3 +3,4 @@ test-results/
 tests/ss-*.png
 .env
 .env.local
+.claude/

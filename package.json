@@ -2,7 +2,6 @@
   "name": "workshop-claude-code",
   "version": "1.0.0",
   "description": "Halaman pendaftaran Workshop Claude Code dengan backend API dan e-tiket QR.",
-  "main": "server.js",
   "scripts": {
     "start": "node server.js",
     "dev":   "node server.js",

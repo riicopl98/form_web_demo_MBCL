@@ -1,5 +1,8 @@
 {
   "version": 2,
+  "framework": null,
+  "outputDirectory": ".",
+  "buildCommand": "echo 'No build step required'",
   "headers": [
     {
       "source": "/(.*)",
@@ -10,8 +13,5 @@
         { "key": "Referrer-Policy",         "value": "strict-origin-when-cross-origin" }
       ]
     }
-  ],
-  "rewrites": [
-    { "source": "/api/daftar", "destination": "/api/daftar.js" }
   ]
 }
