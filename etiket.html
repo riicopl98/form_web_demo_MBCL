@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>E-Tiket — Workshop Claude Code</title>
+  <style>
+    /* === BASE === */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 16px;
+    }
+
+    /* === LABEL ATAS === */
+    .page-label {
+      color: rgba(255,255,255,0.55);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    /* === WRAPPER TIKET === */
+    .ticket-wrap {
+      width: 100%;
+      max-width: 400px;
+      filter: drop-shadow(0 20px 48px rgba(0,0,0,0.5));
+    }
+
+    /* === TIKET ATAS (header event) === */
+    .ticket-header {
+      background: linear-gradient(135deg, #6C47FF 0%, #9333ea 100%);
+      border-radius: 20px 20px 0 0;
+      padding: 28px 32px 24px;
+      color: #fff;
+      text-align: center;
+    }
+
+    .ticket-header .event-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 50px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      margin-bottom: 14px;
+    }
+
+    .ticket-header h1 {
+      font-size: 1.45rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+
+    .ticket-header .event-info {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.8);
+      flex-wrap: wrap;
+    }
+
+    .ticket-header .event-info span { display: flex; align-items: center; gap: 5px; }
+
+    /* === PERFORASI (sambungan berlubang) === */
+    .perforation {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      display: flex;
+      align-items: center;
+      height: 24px;
+      position: relative;
+    }
+
+    /* Lingkaran kiri dan kanan seperti tiket nyata */
+    .perforation::before,
+    .perforation::after {
+      content: '';
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: inherit;
+      top: 0;
+    }
+
+    .perforation::before { left: -12px; }
+    .perforation::after  { right: -12px; }
+
+    .perforation .dots {
+      width: 100%;
+      border-top: 2.5px dashed rgba(108,71,255,0.35);
+      margin: 0 4px;
+    }
+
+    /* === TIKET BAWAH (isi) === */
+    .ticket-body {
+      background: #ffffff;
+      border-radius: 0 0 20px 20px;
+      padding: 28px 32px 32px;
+      text-align: center;
+    }
+
+    /* QR Code */
+    .qr-section { margin-bottom: 20px; }
+
+    .qr-section .qr-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #9ca3af;
+      margin-bottom: 14px;
+    }
+
+    .qr-frame {
+      display: inline-block;
+      padding: 12px;
+      border: 2px solid #e5e7eb;
+      border-radius: 16px;
+      background: #fff;
+    }
+
+    .qr-frame img {
+      display: block;
+      width: 180px;
+      height: 180px;
+      border-radius: 6px;
+    }
+
+    /* Kode tiket */
+    .kode-tiket {
+      display: inline-block;
+      margin-top: 14px;
+      padding: 8px 20px;
+      background: #f3f0ff;
+      border: 1.5px dashed #6C47FF;
+      border-radius: 8px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      color: #1a1a2e;
+    }
+
+    /* Divider tipis */
+    .divider {
+      border: none;
+      border-top: 1.5px solid #f0f0f0;
+      margin: 22px 0;
+    }
+
+    /* Detail peserta */
+    .detail-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px 12px;
+      text-align: left;
+    }
+
+    .detail-item { display: flex; flex-direction: column; gap: 3px; }
+
+    .detail-item .label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #9ca3af;
+    }
+
+    .detail-item .value {
+      font-size: 0.97rem;
+      font-weight: 700;
+      color: #1a1a2e;
+      word-break: break-all;
+    }
+
+    /* Full-width item (nama) */
+    .detail-item.full { grid-column: 1 / -1; }
+
+    /* Strip bawah (warna accent) */
+    .ticket-footer {
+      margin-top: 22px;
+      padding: 12px 16px;
+      background: linear-gradient(135deg, #6C47FF 0%, #9333ea 100%);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .ticket-footer .footer-text {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.85);
+    }
+
+    .ticket-footer .footer-valid {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #fff;
+      background: rgba(255,255,255,0.2);
+      padding: 4px 10px;
+      border-radius: 50px;
+      white-space: nowrap;
+    }
+
+    /* === TOMBOL AKSI === */
+    .actions {
+      margin-top: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .btn-screenshot {
+      padding: 14px;
+      background: #6C47FF;
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-screenshot:hover { background: #5535e0; transform: translateY(-1px); }
+
+    .btn-kembali {
+      padding: 13px;
+      background: transparent;
+      color: rgba(255,255,255,0.65);
+      border: 1.5px solid rgba(255,255,255,0.2);
+      border-radius: 12px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      text-decoration: none;
+      display: block;
+      text-align: center;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .btn-kembali:hover { border-color: rgba(255,255,255,0.5); color: #fff; }
+
+    /* === PRINT MODE (screenshot bersih) === */
+    @media print {
+      body {
+        background: #fff;
+        padding: 0;
+        justify-content: flex-start;
+      }
+      .page-label, .actions { display: none; }
+      .ticket-wrap { filter: none; max-width: 100%; }
+      .perforation {
+        background: #fff;
+      }
+    }
+
+    /* === RESPONSIF === */
+    @media (max-width: 440px) {
+      .ticket-header  { padding: 22px 20px 18px; }
+      .ticket-body    { padding: 22px 20px 24px; }
+      .qr-frame img   { width: 160px; height: 160px; }
+    }
+  </style>
+</head>
+<body>
+
+  <p class="page-label">✦ E-Tiket Resmi</p>
+
+  <!-- TIKET -->
+  <div class="ticket-wrap" id="tiketCard">
+
+    <!-- Header event -->
+    <div class="ticket-header">
+      <div class="event-badge">Workshop Eksklusif</div>
+      <h1>Workshop Claude Code</h1>
+      <div class="event-info">
+        <span>📅 Sabtu, 12 Juli 2026</span>
+        <span>📍 Tech Hub Jakarta</span>
+      </div>
+    </div>
+
+    <!-- Perforasi -->
+    <div class="perforation"><div class="dots"></div></div>
+
+    <!-- Body tiket -->
+    <div class="ticket-body">
+
+      <!-- QR Code -->
+      <div class="qr-section">
+        <p class="qr-label">Scan untuk verifikasi</p>
+        <div class="qr-frame">
+          <img id="qrImg" src="" alt="QR Code Tiket" />
+        </div>
+        <div class="kode-tiket" id="displayKode">—</div>
+      </div>
+
+      <hr class="divider" />
+
+      <!-- Detail peserta -->
+      <div class="detail-grid">
+        <div class="detail-item full">
+          <span class="label">Nama Peserta</span>
+          <span class="value" id="displayNama">—</span>
+        </div>
+        <div class="detail-item">
+          <span class="label">Jumlah Tiket</span>
+          <span class="value" id="displayTiket">—</span>
+        </div>
+        <div class="detail-item">
+          <span class="label">Total Harga</span>
+          <span class="value" id="displayHarga">—</span>
+        </div>
+        <div class="detail-item full">
+          <span class="label">Email</span>
+          <span class="value" id="displayEmail">—</span>
+        </div>
+      </div>
+
+      <!-- Strip bawah -->
+      <div class="ticket-footer">
+        <span class="footer-text">Tunjukkan tiket ini saat check-in</span>
+        <span class="footer-valid">✓ Valid</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Tombol aksi -->
+  <div class="actions">
+    <button class="btn-screenshot" onclick="window.print()">🖨️ Cetak / Simpan sebagai PDF</button>
+    <a href="/" class="btn-kembali">← Kembali ke Halaman Utama</a>
+  </div>
+
+  <script>
+    const HARGA_PER_TIKET = 50000;
+
+    function formatRupiah(jumlah) {
+      return 'Rp ' + jumlah.toLocaleString('id-ID');
+    }
+
+    function getParam(key) {
+      return new URLSearchParams(window.location.search).get(key) || '';
+    }
+
+    const kode  = getParam('kode');
+    const nama  = getParam('nama');
+    const tiket = parseInt(getParam('tiket'), 10) || 1;
+    const email = getParam('email');
+
+    // Redirect ke home jika tidak ada data (mis. akses langsung)
+    if (!kode || !nama) {
+      window.location.replace('/');
+    }
+
+    // Isi konten tiket
+    document.getElementById('displayKode').textContent  = kode;
+    document.getElementById('displayNama').textContent  = nama;
+    document.getElementById('displayTiket').textContent = tiket + (tiket > 1 ? ' Tiket' : ' Tiket');
+    document.getElementById('displayHarga').textContent = formatRupiah(tiket * HARGA_PER_TIKET);
+    document.getElementById('displayEmail').textContent = email;
+    document.title = `E-Tiket ${kode} — Workshop Claude Code`;
+
+    // Muat QR code dari api.qrserver.com
+    const qrData = encodeURIComponent(kode);
+    document.getElementById('qrImg').src =
+      `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${qrData}&bgcolor=ffffff&color=1a1a2e&margin=2&qzone=1`;
+  </script>
+
+</body>
+</html>

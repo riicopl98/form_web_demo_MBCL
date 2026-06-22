@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Workshop Claude Code</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- HERO SECTION -->
+  <header class="hero">
+    <div class="hero-content">
+      <span class="badge">Workshop Eksklusif</span>
+      <h1>Workshop Claude Code</h1>
+      <p class="tagline">Kuasai AI Coding Assistant Terdepan — Dari Nol Hingga Produktif</p>
+
+      <div class="event-meta">
+        <div class="meta-item">
+          <span class="icon">📅</span>
+          <div>
+            <strong>Tanggal</strong>
+            <span>Sabtu, 12 Juli 2026</span>
+          </div>
+        </div>
+        <div class="meta-item">
+          <span class="icon">⏰</span>
+          <div>
+            <strong>Waktu</strong>
+            <span>09.00 – 17.00 WIB</span>
+          </div>
+        </div>
+        <div class="meta-item">
+          <span class="icon">📍</span>
+          <div>
+            <strong>Lokasi</strong>
+            <span>Grand Indonesia Mall, Jakarta Pusat</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- DESCRIPTION SECTION -->
+    <section class="section description">
+      <div class="container">
+        <h2>Tentang Workshop</h2>
+        <p>
+          Bergabunglah dengan ratusan developer Indonesia dalam workshop intensif satu hari
+          yang dirancang untuk memaksimalkan produktivitasmu bersama <strong>Claude Code</strong>
+          — AI coding assistant dari Anthropic.
+        </p>
+        <p>
+          Kamu akan belajar langsung dari praktisi berpengalaman: cara membangun fitur
+          lebih cepat, melakukan debug otomatis, menulis test, hingga merancang arsitektur
+          sistem yang kompleks — semuanya dibantu AI secara real-time.
+        </p>
+
+        <div class="highlights">
+          <div class="highlight-card">
+            <span>🚀</span>
+            <h3>Hands-on Practice</h3>
+            <p>Langsung coding, bukan sekadar teori</p>
+          </div>
+          <div class="highlight-card">
+            <span>🧠</span>
+            <h3>Expert Mentors</h3>
+            <p>Dipandu oleh engineer berpengalaman</p>
+          </div>
+          <div class="highlight-card">
+            <span>🎯</span>
+            <h3>Real Project</h3>
+            <p>Bangun proyek nyata selama workshop</p>
+          </div>
+          <div class="highlight-card">
+            <span>🤝</span>
+            <h3>Networking</h3>
+            <p>Terhubung dengan komunitas developer</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LOCATION MAP -->
+    <section class="section map-section">
+      <div class="container">
+        <h2>Lokasi Acara</h2>
+        <p class="map-address">📍 Grand Indonesia Shopping Town — Jl. M.H. Thamrin No.1, Menteng, Jakarta Pusat</p>
+        <div class="map-frame">
+          <iframe
+            src="https://www.openstreetmap.org/export/embed.html?bbox=106.8140%2C-6.2010%2C106.8290%2C-6.1900&layer=mapnik&marker=-6.1957601%2C106.8214547"
+            width="100%"
+            height="380"
+            frameborder="0"
+            loading="lazy"
+            allowfullscreen
+            title="Peta Lokasi Grand Indonesia Mall"
+          ></iframe>
+        </div>
+        <a
+          class="map-link"
+          href="https://www.openstreetmap.org/?mlat=-6.1957601&mlon=106.8214547#map=17/-6.1957601/106.8214547"
+          target="_blank"
+          rel="noopener noreferrer"
+        >Buka peta lebih besar →</a>
+      </div>
+    </section>
+
+    <!-- REGISTRATION FORM -->
+    <section class="section form-section" id="daftar">
+      <div class="container form-container">
+        <div class="form-header">
+          <h2>Daftar Sekarang</h2>
+          <p>Tempat terbatas — amankan tiketmu sebelum habis!</p>
+        </div>
+
+        <form id="registrationForm" novalidate>
+          <div class="form-group">
+            <label for="nama">Nama Lengkap <span class="required">*</span></label>
+            <input
+              type="text"
+              id="nama"
+              name="nama"
+              placeholder="Masukkan nama lengkap kamu"
+              autocomplete="name"
+            />
+            <span class="error-msg" id="error-nama"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Alamat Email <span class="required">*</span></label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="nama@email.com"
+              autocomplete="email"
+            />
+            <span class="error-msg" id="error-email"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="tiket">Jumlah Tiket <span class="required">*</span></label>
+            <div class="ticket-counter">
+              <button type="button" class="counter-btn" id="btnMinus" aria-label="Kurangi tiket">−</button>
+              <input
+                type="number"
+                id="tiket"
+                name="tiket"
+                value="1"
+                min="1"
+                max="10"
+                readonly
+              />
+              <button type="button" class="counter-btn" id="btnPlus" aria-label="Tambah tiket">+</button>
+            </div>
+            <span class="ticket-price" id="ticketPrice">TOTAL HARGA: Rp 50.000</span>
+            <span class="error-msg" id="error-tiket"></span>
+          </div>
+
+          <button type="submit" class="btn-submit" id="submitBtn">
+            <span class="btn-text">Beli Tiket</span>
+            <span class="btn-icon">→</span>
+          </button>
+        </form>
+
+        <!-- SUCCESS MESSAGE -->
+        <div class="success-message" id="successMessage">
+          <div class="success-icon">✅</div>
+          <h3>Pendaftaran Berhasil!</h3>
+          <p id="successDetail"></p>
+          <div class="kode-tiket-box">
+            <span class="kode-tiket-label">Kode Tiket Kamu</span>
+            <span class="kode-tiket-nilai" id="successKode"></span>
+          </div>
+          <p class="success-sub">Simpan kode ini. Konfirmasi lengkap akan dikirim ke emailmu.</p>
+          <button class="btn-reset" id="btnReset">Daftar Lagi</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <p>© 2026 Workshop Claude Code · Dibuat dengan ❤️ di Jakarta</p>
+    <p class="footer-sub">Ada pertanyaan? Hubungi kami di <a href="mailto:info@claudecodeworkshop.id">info@claudecodeworkshop.id</a></p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

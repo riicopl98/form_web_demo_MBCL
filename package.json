@@ -1,0 +1,17 @@
+{
+  "name": "workshop-claude-code",
+  "version": "1.0.0",
+  "description": "Halaman pendaftaran Workshop Claude Code dengan backend API dan e-tiket QR.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev":   "node server.js",
+    "test":  "npx playwright test --config=playwright.config.js",
+    "build": "echo 'No build step required'"
+  },
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@playwright/test": "^1.61.0"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8080/)",
+      "Bash(node --check \"/Users/macbookair/Documents/Form_Web_Demo_Claude Code/script.js\")",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\" http://localhost:8080/)",
+      "Bash(npx playwright *)",
+      "Bash(npx puppeteer *)",
+      "Bash(npm init *)",
+      "Bash(npm install *)",
+      "Read(//Users/macbookair/.cache/**)",
+      "Read(//Users/macbookair/Library/Caches/ms-playwright/**)",
+      "Bash(./node_modules/.bin/playwright install *)",
+      "Bash(kill 53592)",
+      "Bash(node server.js)",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\" http://localhost:3000/)",
+      "Bash(curl -s -X POST http://localhost:3000/api/daftar -H 'Content-Type: application/json' -d '{\"nama\":\"Budi Santoso\",\"email\":\"budi@email.com\",\"jumlahTiket\":2}')",
+      "Bash(python3 -m json.tool)",
+      "Bash(curl -s -X POST http://localhost:3000/api/daftar -H 'Content-Type: application/json' -d '{\"nama\":\"\",\"email\":\"budi@email.com\",\"jumlahTiket\":1}')",
+      "Bash(curl -s -X POST http://localhost:3000/api/daftar -H 'Content-Type: application/json' -d '{\"nama\":\"Siti\",\"email\":\"abc\",\"jumlahTiket\":1}')",
+      "Bash(node tests/uji-ocir.js)",
+      "Bash(curl -s 'https://nominatim.openstreetmap.org/search?q=Grand+Indonesia+Mall+Jakarta&format=json&limit=1' -H 'User-Agent: WorkshopClaudeCode/1.0')",
+      "Bash(node tests/cek-peta.js)",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\('deps:', d.get\\('dependencies',{}\\)\\); print\\('devDeps:', d.get\\('devDependencies',{}\\)\\)\")",
+      "Bash(node --check api/daftar.js)",
+      "Bash(node --check server.js)",
+      "Bash(curl -s -o /dev/null -w \"Halaman utama: HTTP %{http_code}\\\\n\" http://localhost:3000/)",
+      "Bash(curl -s -o /dev/null -w \"etiket.html  : HTTP %{http_code}\\\\n\" http://localhost:3000/etiket.html)",
+      "Bash(curl -s -X POST http://localhost:3000/api/daftar -H 'Content-Type: application/json' -d '{\"nama\":\"Deploy Test\",\"email\":\"deploy@test.com\",\"jumlahTiket\":1}')",
+      "Bash(npm run *)"
+    ]
+  }
+}

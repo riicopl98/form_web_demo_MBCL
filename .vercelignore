@@ -1,0 +1,7 @@
+node_modules/
+tests/
+test-results/
+server.js
+playwright.config.js
+data/pendaftaran.json
+.claude/
